@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Điểm danh cơ sở - Phường Xuân Hòa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { background: linear-gradient(to bottom, #991b1b, #7f1d1d); color: white; min-height: 100vh; }
+    input:focus { outline: none; box-shadow: 0 0 0 3px rgba(250,204,21,0.4); }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+  <div class="w-full max-w-lg bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-white/20">
+    <a href="index.html" class="text-yellow-300 hover:text-yellow-200 flex items-center mb-6 text-lg">
+      ← Quay về trang chủ
+    </a>
+    
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">Tạo Sự Kiện Điểm Danh</h1>
+    
+    <div class="space-y-6">
+      <div>
+        <label class="block text-lg font-medium mb-2">Tên sự kiện điểm danh</label>
+        <input id="tenSuKien" type="text" placeholder="Ví dụ: Sinh hoạt chi đoàn tháng 3" 
+               class="w-full px-5 py-4 bg-white/15 border border-white/30 rounded-full text-white placeholder-gray-300 focus:border-yellow-400 transition">
+      </div>
+      
+      <button onclick="taoSuKien()" 
+              class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl py-5 rounded-full shadow-lg transition transform hover:scale-105">
+        Tạo & Sinh QR Code
+      </button>
+    </div>
+
+    <div id="result" class="mt-12 hidden text-center animate-fade-in">
+      <p class="text-xl font-medium mb-4">Link điểm danh (chia sẻ cho đoàn viên):</p>
+      <a id="link" target="_blank" class="text-yellow-300 hover:underline break-all block mb-6 text-lg"></a>
+      
+      <div class="bg-white p-6 rounded-2xl inline-block shadow-xl">
+        <div id="qrcode" class="mx-auto"></div>
+      </div>
+      
+      <p class="mt-6 text-sm opacity-80">Quét mã QR này bằng điện thoại để điểm danh nhanh. Mỗi thiết bị chỉ điểm danh 1 lần/sự kiện.</p>
+    </div>
+  </div>
+
+  <script>
+  function taoSuKien() {
+    const ten = document.getElementById('tenSuKien').value.trim();
+    if (!ten) return alert('Vui lòng nhập tên sự kiện!');
+    
+    const id = Date.now();
+    const link = `${window.location.origin}/diem-danh-form.html?id=${id}`;
+    
+    document.getElementById('link').href = link;
+    document.getElementById('link').textContent = link;
+    
+    document.getElementById('result').classList.remove('hidden');
+    
+    document.getElementById('qrcode').innerHTML = '';
+    new QRCode(document.getElementById('qrcode'), {
+      text: link,
+      width: 220,
+      height: 220,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    
+    // Lưu sự kiện (nếu cần hiển thị danh sách sau)
+    const events = JSON.parse(localStorage.getItem('diemdanhEvents') || '[]');
+    events.push({id, ten});
+    localStorage.setItem('diemdanhEvents', JSON.stringify(events));
+  }
+  </script>
+</body>
+</html>
