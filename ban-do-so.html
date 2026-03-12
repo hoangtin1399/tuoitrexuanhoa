@@ -2,19 +2,53 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bản đồ bầu cử - Phường Xuân Hòa</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style> body { background: #111; color: white; } #map { height: 80vh; } </style>
+  <style>
+    :root { --doan-green: #4CAF50; }
+    body { background: linear-gradient(to bottom, #f0f7f4, #e8f5e9); color: #1b5e20; }
+  </style>
 </head>
-<body>
-  <header class="bg-black/50 py-4 text-center">
-    <a href="index.html" class="text-yellow-300">← Quay về trang chủ</a>
-    <h1 class="text-3xl font-bold mt-2">BẢN ĐỒ THÔNG MINH PHỤC VỤ BẦU CỬ</h1>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white py-4 shadow-lg fixed w-full z-50">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Emblem_of_the_Communist_Party_of_Vietnam.svg/1200px-Emblem_of_the_Communist_Party_of_Vietnam.svg.png" alt="Logo Đoàn" class="h-10 w-10 md:h-12 md:w-12">
+        <div>
+          <h1 class="text-lg md:text-2xl font-bold">Tuổi Trẻ Xuân Hòa</h1>
+          <p class="text-xs md:text-base">Đoàn TNCS Hồ Chí Minh Phường Xuân Hòa</p>
+        </div>
+      </div>
+      <a href="index.html" class="text-white hover:text-yellow-300 font-medium">← Trang chủ</a>
+    </div>
   </header>
-  <div class="p-6 max-w-6xl mx-auto">
-    <p class="mb-4 text-lg">Nhập địa chỉ nhà bạn vào thanh tìm kiếm trên bản đồ để tra cứu điểm bỏ phiếu gần nhất.</p>
-    <iframe id="map" src="https://www.google.com/maps/d/embed?mid=1UUIrmBXAXwRRTm6ihEXdisbRusP2OwI&ll=10.784582785725364%2C106.68883250013887&z=17" frameborder="0" allowfullscreen></iframe>
-  </div>
+
+  <!-- Main -->
+  <main class="flex-1 pt-28 pb-20 px-6 max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-10 text-[#1B5E20]">BẢN ĐỒ THÔNG MINH PHỤC VỤ BẦU CỬ</h1>
+    <p class="text-xl text-center mb-8 text-gray-700">Nhập địa chỉ nhà bạn để tra cứu điểm bỏ phiếu tại phường Xuân Hòa</p>
+
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" style="height: 70vh;">
+      <iframe 
+        src="https://www.google.com/maps/d/embed?mid=1UUIrmBXAXwRRTm6ihEXdisbRusP2OwI&ll=10.784582785725364%2C106.68883250013887&z=17" 
+        width="100%" height="100%" frameborder="0" allowfullscreen>
+      </iframe>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1B5E20] text-white py-4 text-center overflow-hidden mt-auto">
+    <div class="marquee inline-block whitespace-nowrap">
+      <span class="text-lg font-medium">Được thực hiện bởi HMT - Đoàn phường Xuân Hòa</span>
+    </div>
+  </footer>
+
+  <style>
+    .marquee { animation: scroll 25s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+  </style>
 </body>
 </html>

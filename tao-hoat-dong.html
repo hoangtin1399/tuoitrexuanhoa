@@ -2,51 +2,89 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tạo hoạt động</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tạo hoạt động - Phường Xuân Hòa</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --doan-green: #4CAF50; }
+    body { background: linear-gradient(to bottom, #f0f7f4, #e8f5e9); color: #1b5e20; }
+  </style>
 </head>
-<body class="bg-gradient-to-b from-red-800 to-red-950 text-white min-h-screen">
-<header class="bg-black/50 py-4 text-center"><a href="index.html" class="text-yellow-300">← Trang chủ</a></header>
+<body class="min-h-screen flex flex-col">
 
-<div class="max-w-2xl mx-auto p-8 mt-10 bg-white/10 rounded-3xl">
-  <h1 class="text-4xl font-bold text-center mb-8">TẠO HOẠT ĐỘNG MỚI</h1>
-  <form id="form">
-    <input id="ten" type="text" placeholder="Tên hoạt động" class="w-full p-4 rounded-2xl mb-4 bg-white/20" required>
-    <input id="thoiGian" type="datetime-local" class="w-full p-4 rounded-2xl mb-4 bg-white/20" required>
-    <textarea id="moTa" placeholder="Mô tả hoạt động" class="w-full p-4 rounded-2xl h-32 bg-white/20"></textarea>
-    
-    <label class="block mt-6 mb-2 font-bold">Đính kèm hình ảnh</label>
-    <input id="anh" type="file" accept="image/*" class="w-full">
-    <img id="preview" class="mt-4 hidden w-full rounded-2xl">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white py-4 shadow-lg fixed w-full z-50">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Emblem_of_the_Communist_Party_of_Vietnam.svg/1200px-Emblem_of_the_Communist_Party_of_Vietnam.svg.png" alt="Logo Đoàn" class="h-10 w-10 md:h-12 md:w-12">
+        <div>
+          <h1 class="text-lg md:text-2xl font-bold">Tuổi Trẻ Xuân Hòa</h1>
+          <p class="text-xs md:text-base">Đoàn TNCS Hồ Chí Minh Phường Xuân Hòa</p>
+        </div>
+      </div>
+      <a href="index.html" class="text-white hover:text-yellow-300 font-medium">← Trang chủ</a>
+    </div>
+  </header>
 
-    <button type="submit" class="w-full mt-8 bg-yellow-400 text-black py-6 text-2xl font-bold rounded-full">TẠO HOẠT ĐỘNG</button>
-  </form>
-</div>
+  <!-- Main -->
+  <main class="flex-1 pt-28 pb-20 px-6 max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-10 text-[#1B5E20]">Tạo Hoạt Động Mới</h1>
 
-<script>
-document.getElementById('anh').onchange = e => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = ev => document.getElementById('preview').src = ev.target.result;
-  reader.readAsDataURL(file);
-  document.getElementById('preview').classList.remove('hidden');
-};
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <form id="form">
+        <input id="ten" type="text" placeholder="Tên hoạt động" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
+        <input id="thoiGian" type="datetime-local" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
+        <textarea id="moTa" placeholder="Mô tả hoạt động" class="w-full p-4 rounded-xl h-32 mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"></textarea>
 
-document.getElementById('form').onsubmit = e => {
-  e.preventDefault();
-  const activities = JSON.parse(localStorage.getItem('activities') || '[]');
-  activities.push({
-    id: Date.now(),
-    ten: document.getElementById('ten').value,
-    thoiGian: document.getElementById('thoiGian').value,
-    moTa: document.getElementById('moTa').value,
-    anh: document.getElementById('preview').src || ''
-  });
-  localStorage.setItem('activities', JSON.stringify(activities));
-  alert('✅ Hoạt động đã được tạo và hiển thị trên trang chủ!');
-  window.location = 'index.html';
-};
-</script>
+        <label class="block mb-3 text-lg font-medium text-gray-700">Đính kèm hình ảnh</label>
+        <input id="anh" type="file" accept="image/*" class="w-full mb-6">
+        <img id="preview" class="hidden w-full rounded-2xl mb-6 shadow">
+
+        <button type="submit" class="w-full bg-[#4CAF50] hover:bg-[#388E3C] text-white font-bold text-xl py-5 rounded-full shadow-lg transition">
+          TẠO HOẠT ĐỘNG
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1B5E20] text-white py-4 text-center overflow-hidden mt-auto">
+    <div class="marquee inline-block whitespace-nowrap">
+      <span class="text-lg font-medium">Được thực hiện bởi HMT - Đoàn phường Xuân Hòa</span>
+    </div>
+  </footer>
+
+  <style>
+    .marquee { animation: scroll 25s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+  </style>
+
+  <script>
+    document.getElementById('anh').onchange = e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+          document.getElementById('preview').src = ev.target.result;
+          document.getElementById('preview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    document.getElementById('form').onsubmit = e => {
+      e.preventDefault();
+      const activities = JSON.parse(localStorage.getItem('activities') || '[]');
+      activities.push({
+        ten: document.getElementById('ten').value,
+        thoiGian: document.getElementById('thoiGian').value,
+        moTa: document.getElementById('moTa').value,
+        anh: document.getElementById('preview').src || ''
+      });
+      localStorage.setItem('activities', JSON.stringify(activities));
+      alert('Hoạt động đã được tạo và hiển thị trên trang chủ!');
+      window.location = 'index.html';
+    };
+  </script>
 </body>
 </html>

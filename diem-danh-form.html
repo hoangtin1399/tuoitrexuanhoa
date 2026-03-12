@@ -2,80 +2,141 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Điểm danh sự kiện - Phường Xuân Hòa</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <style>
-    body { background: linear-gradient(to bottom, #b91c1c, #7f1d1d); color: white; min-height: 100vh; }
-    input:focus { outline: none; box-shadow: 0 0 0 3px rgba(250,204,21,0.4); }
-    .animate-fade-in { animation: fadeIn 0.6s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    :root { --doan-green: #4CAF50; --doan-green-light: #66BB6A; }
+    body { background: linear-gradient(to bottom, #f0f7f4, #e8f5e9); color: #1b5e20; }
   </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
-  <div class="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-white/20 animate-fade-in">
-    <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">Điểm Danh Sự Kiện</h1>
-    
-    <div class="space-y-6">
-      <div>
-        <label class="block text-lg font-medium mb-2">Họ và tên</label>
-        <input id="ten" type="text" placeholder="Ví dụ: Nguyễn Văn A" 
-               class="w-full px-5 py-4 bg-white/15 border border-white/30 rounded-full text-white placeholder-gray-300 focus:border-yellow-400 transition" required>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white py-4 shadow-lg fixed w-full z-50">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Emblem_of_the_Communist_Party_of_Vietnam.svg/1200px-Emblem_of_the_Communist_Party_of_Vietnam.svg.png" alt="Logo Đoàn" class="h-10 w-10 md:h-12 md:w-12">
+        <div>
+          <h1 class="text-lg md:text-2xl font-bold">Tuổi Trẻ Xuân Hòa</h1>
+          <p class="text-xs md:text-base">Đoàn TNCS Hồ Chí Minh Phường Xuân Hòa</p>
+        </div>
       </div>
-      
-      <div>
-        <label class="block text-lg font-medium mb-2">Đơn vị / Chi đoàn</label>
-        <input id="donvi" type="text" placeholder="Ví dụ: Chi đoàn 1" 
-               class="w-full px-5 py-4 bg-white/15 border border-white/30 rounded-full text-white placeholder-gray-300 focus:border-yellow-400 transition" required>
-      </div>
-      
-      <div>
-        <label class="block text-lg font-medium mb-2">Chức vụ</label>
-        <input id="chucvu" type="text" placeholder="Ví dụ: Bí thư chi đoàn" 
-               class="w-full px-5 py-4 bg-white/15 border border-white/30 rounded-full text-white placeholder-gray-300 focus:border-yellow-400 transition">
-      </div>
-      
-      <div>
-        <label class="block text-lg font-medium mb-2">Số điện thoại</label>
-        <input id="sdt" type="tel" placeholder="Ví dụ: 0909123456" 
-               class="w-full px-5 py-4 bg-white/15 border border-white/30 rounded-full text-white placeholder-gray-300 focus:border-yellow-400 transition" required>
-      </div>
-      
-      <button onclick="diemDanh()" 
-              class="w-full bg-green-600 hover:bg-green-500 text-white font-bold text-xl py-5 rounded-full shadow-lg transition transform hover:scale-105 mt-4">
-        ĐIỂM DANH NGAY
-      </button>
+      <a href="index.html" class="text-white hover:text-yellow-300 font-medium">← Trang chủ</a>
     </div>
-    
-    <p class="text-center mt-8 text-sm opacity-80">Mỗi thiết bị chỉ điểm danh được 1 lần cho sự kiện này.</p>
-  </div>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 pt-28 pb-20 px-6 max-w-md mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-10 text-[#1B5E20]">Điểm Danh Sự Kiện</h1>
+
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <form id="form" class="space-y-6">
+        <div>
+          <label class="block text-lg font-medium mb-2 text-gray-700">Họ và tên</label>
+          <input id="ten" type="text" placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
+        </div>
+        <div>
+          <label class="block text-lg font-medium mb-2 text-gray-700">Đơn vị / Chi đoàn</label>
+          <input id="donvi" type="text" placeholder="Ví dụ: Chi đoàn 1" class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
+        </div>
+        <div>
+          <label class="block text-lg font-medium mb-2 text-gray-700">Chức vụ</label>
+          <input id="chucvu" type="text" placeholder="Ví dụ: Bí thư chi đoàn" class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4CAF50]">
+        </div>
+        <div>
+          <label class="block text-lg font-medium mb-2 text-gray-700">Số điện thoại</label>
+          <input id="sdt" type="tel" placeholder="Ví dụ: 0909123456" class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
+        </div>
+
+        <button type="button" onclick="diemDanh()" class="w-full bg-[#4CAF50] hover:bg-[#388E3C] text-white font-bold text-xl py-5 rounded-full shadow-lg transition">
+          ĐIỂM DANH NGAY
+        </button>
+      </form>
+
+      <div id="ketqua" class="hidden text-center mt-10">
+        <h2 class="text-3xl font-bold text-green-600 mb-6">Điểm danh thành công!</h2>
+        <p class="text-xl mb-4">Cảm ơn bạn đã tham gia.</p>
+        <button onclick="window.location.href='index.html'" class="mt-6 bg-[#4CAF50] text-white py-4 px-10 rounded-full font-bold">
+          Quay về trang chủ
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1B5E20] text-white py-4 text-center overflow-hidden mt-auto">
+    <div class="marquee inline-block whitespace-nowrap">
+      <span class="text-lg font-medium">Được thực hiện bởi HMT - Đoàn phường Xuân Hòa</span>
+    </div>
+  </footer>
+
+  <style>
+    .marquee { animation: scroll 25s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+  </style>
 
   <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const eventId = urlParams.get('id');
+    // THAY CONFIG THẬT CỦA BẠN VÀO ĐÂY
+    const firebaseConfig = {
+      apiKey: "AIzaSyAiAgc4XXNvZR-Dzm4Qwmicz-8WkS-xb_c",
+  authDomain: "doanphuongxuanhoa-133a1.firebaseapp.com",
+  projectId: "doanphuongxuanhoa-133a1",
+  storageBucket: "doanphuongxuanhoa-133a1.firebasestorage.app",
+  messagingSenderId: "427741291509",
+  appId: "1:427741291509:web:3fc3fc7a3a8e6d6b11f6bc"
+    };
 
-  function diemDanh() {
-    if (!eventId) return alert('Link điểm danh không hợp lệ!');
-    
-    const ten = document.getElementById('ten').value.trim();
-    const donvi = document.getElementById('donvi').value.trim();
-    const chucvu = document.getElementById('chucvu').value.trim();
-    const sdt = document.getElementById('sdt').value.trim();
-    
-    if (!ten || !donvi || !sdt) return alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
-    
-    const daDiem = localStorage.getItem('daDiemDanh_' + eventId);
-    if (daDiem) {
-      alert('❌ Bạn đã điểm danh cho sự kiện này rồi! Không thể điểm danh lại.');
-      return;
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('id');
+
+    if (eventId) {
+      db.ref('events/' + eventId).once('value').then(snap => {
+        if (!snap.exists()) {
+          alert('Sự kiện không tồn tại hoặc đã hết hạn!');
+          window.location.href = 'index.html';
+        }
+      });
+    } else {
+      alert('Link điểm danh không hợp lệ!');
+      window.location.href = 'index.html';
     }
-    
-    const data = { ten, donvi, chucvu, sdt, thoiGian: new Date().toLocaleString('vi-VN') };
-    localStorage.setItem('daDiemDanh_' + eventId, JSON.stringify(data));
-    
-    alert('✅ Điểm danh thành công! Cảm ơn bạn đã tham gia.\nThông tin đã được ghi nhận.');
-    window.location.href = 'index.html'; // Quay về trang chủ
-  }
+
+    function diemDanh() {
+      const ten = document.getElementById('ten').value.trim();
+      const donvi = document.getElementById('donvi').value.trim();
+      const chucvu = document.getElementById('chucvu').value.trim();
+      const sdt = document.getElementById('sdt').value.trim();
+
+      if (!ten || !donvi || !sdt) return alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+
+      if (localStorage.getItem('daDiemDanh_' + eventId)) {
+        alert('Bạn đã điểm danh cho sự kiện này rồi!');
+        return;
+      }
+
+      const data = {
+        ten,
+        donvi,
+        chucvu: chucvu || '-',
+        sdt,
+        thoiGian: new Date().toLocaleString('vi-VN')
+      };
+
+      db.ref('attendance/' + eventId).push(data)
+        .then(() => {
+          localStorage.setItem('daDiemDanh_' + eventId, 'true');
+          document.getElementById('form').classList.add('hidden');
+          document.getElementById('ketqua').classList.remove('hidden');
+        })
+        .catch(err => alert('Lỗi: ' + err.message));
+    }
   </script>
 </body>
 </html>
