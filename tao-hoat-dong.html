@@ -6,14 +6,14 @@
   <title>Tạo hoạt động - Phường Xuân Hòa</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --doan-green: #4CAF50; }
-    body { background: linear-gradient(to bottom, #f0f7f4, #e8f5e9); color: #1b5e20; }
+    :root { --primary-blue: #0D47A1; --light-blue: #2196F3; }
+    body { background: linear-gradient(to bottom, #e3f2fd, #bbdefb); color: #0d47a1; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white py-4 shadow-lg fixed w-full z-50">
+  <header class="bg-gradient-to-r from-[#0D47A1] to-[#1976D2] text-white py-4 shadow-lg fixed w-full z-50">
     <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
       <div class="flex items-center gap-4">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Emblem_of_the_Communist_Party_of_Vietnam.svg/1200px-Emblem_of_the_Communist_Party_of_Vietnam.svg.png" alt="Logo Đoàn" class="h-10 w-10 md:h-12 md:w-12">
@@ -28,19 +28,19 @@
 
   <!-- Main -->
   <main class="flex-1 pt-28 pb-20 px-6 max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-10 text-[#1B5E20]">Tạo Hoạt Động Mới</h1>
+    <h1 class="text-4xl font-bold text-center mb-10 text-[#0D47A1]">Tạo Hoạt Động Mới</h1>
 
     <div class="bg-white rounded-2xl shadow-xl p-8">
       <form id="form">
-        <input id="ten" type="text" placeholder="Tên hoạt động" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
-        <input id="thoiGian" type="datetime-local" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]" required>
-        <textarea id="moTa" placeholder="Mô tả hoạt động" class="w-full p-4 rounded-xl h-32 mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"></textarea>
+        <input id="ten" type="text" placeholder="Tên hoạt động" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2196F3]" required>
+        <input id="thoiGian" type="datetime-local" class="w-full p-4 rounded-xl mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2196F3]" required>
+        <textarea id="moTa" placeholder="Mô tả hoạt động" class="w-full p-4 rounded-xl h-32 mb-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2196F3]"></textarea>
 
         <label class="block mb-3 text-lg font-medium text-gray-700">Đính kèm hình ảnh</label>
         <input id="anh" type="file" accept="image/*" class="w-full mb-6">
         <img id="preview" class="hidden w-full rounded-2xl mb-6 shadow">
 
-        <button type="submit" class="w-full bg-[#4CAF50] hover:bg-[#388E3C] text-white font-bold text-xl py-5 rounded-full shadow-lg transition">
+        <button type="submit" class="w-full bg-[#0D47A1] hover:bg-[#1976D2] text-white font-bold text-xl py-5 rounded-full shadow-lg transition">
           TẠO HOẠT ĐỘNG
         </button>
       </form>
@@ -48,7 +48,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-[#1B5E20] text-white py-4 text-center overflow-hidden mt-auto">
+  <footer class="bg-[#0D47A1] text-white py-4 text-center overflow-hidden mt-auto">
     <div class="marquee inline-block whitespace-nowrap">
       <span class="text-lg font-medium">Được thực hiện bởi HMT - Đoàn phường Xuân Hòa</span>
     </div>
